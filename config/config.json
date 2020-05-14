@@ -1,0 +1,15 @@
+{
+  "server": {
+    "listen": "0.0.0.0:3001",
+    "debug": true
+  },
+  "mysql": {
+    "host": "localhost",
+    "port": "3306",
+    "user": "root",
+    "passwd": "root",
+    "db": "seefly",
+    "max_idle_conns": 10,
+    "max_open_conns": 100
+  }
+}
