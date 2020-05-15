@@ -4,6 +4,7 @@ import (
 	"gin/config"
 	"gin/controllers"
 	"gin/models"
+	"gin/tools"
 	"github.com/gin-gonic/gin"
 	"log"
 	"os"
@@ -16,9 +17,10 @@ func main() {
 	//加载配置
 	config.Load(dir);
 	cfg := config.GetConfig()
+	//加载数据库和redis
 	setup(cfg)
 	//数据迁移
-	models.GetDb().AutoMigrate(&models.User{},&models.Content{})
+	models.GetDb().AutoMigrate(&models.User{},&models.Content{},&models.Novel{})
 	r := gin.Default()
 	//加载路由
 	controllers.Init(r)
@@ -29,6 +31,8 @@ func main() {
 	}
 	panic(r.Run())
 }
+//加载程序
 func setup(cfg *config.Config){
 	models.InitDb(cfg.Mysql,cfg.Server.Debug)
+	tools.InitRedis(cfg.Redis)
 }

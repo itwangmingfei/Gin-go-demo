@@ -10,6 +10,7 @@ import (
 //定义路由
 func Init(r *gin.Engine) {
 	initUserRouteAr(r)
+	initGocollRouteAr(r)
 }
 
 func GetPage(c *gin.Context) int{

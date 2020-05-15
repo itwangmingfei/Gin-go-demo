@@ -11,5 +11,11 @@
     "db": "seefly",
     "max_idle_conns": 10,
     "max_open_conns": 100
+  },
+  "redis": {
+    "host": "localhost",
+    "port": "6379",
+    "passwd": "",
+    "db": 0
   }
 }

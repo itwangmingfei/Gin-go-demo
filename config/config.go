@@ -22,9 +22,16 @@ type Mysql struct {
 	MaxIdleConns int    `json:"max_idle_conns"`
 	MaxOpenConns int    `json:"max_o_pen_conns"`
 }
+type Redis struct {
+	Host   string `json:"host"`
+	Port   string `json:"port"`
+	Passwd string `json:"passwd"`
+	Db     int    `json:"db"`
+}
 type Config struct {
-	Server      Server      `json:"server"`
-	Mysql       Mysql       `json:"mysql"`
+	Server Server `json:"server"`
+	Mysql  Mysql  `json:"mysql"`
+	Redis  Redis  `json:"redis"`
 }
 
 var cfg Config
