@@ -62,6 +62,7 @@ func (g Gocoll) get(c *gin.Context){
 
 	q,_ :=queue.New(2,storage)
 	/*<h2 class="tit">????</h2>*/
+	/*获取样式 div.data-txt 模块下的数据信息*/
 	coll.OnHTML(`div.data-txt`, func(e *colly.HTMLElement) {
 		ls,_ := e.DOM.Html()
 
@@ -120,6 +121,7 @@ func (g Gocoll) get(c *gin.Context){
 	//获取url
 	coll.OnHTML(`a[href]`,func(e *colly.HTMLElement){
 		link := e.Attr("href")
+		//匹配书库
 		reg := regexp.MustCompile(`^(/shuku/[1-9]{6}/)`)
 		res := reg.FindAllString(link,-1)
 		//存在返回数据

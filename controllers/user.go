@@ -32,7 +32,7 @@ func (u User) list(c *gin.Context){
 	lib.Pagesize = GetPagesize(c)
 	lib.Offset = (Pageindex-1)*lib.Pagesize
 	users := lib.GetList()
-	if users == nil{
+	if users["list"] == nil{
 		response.ShowFailed(c,nil,"数据不存在！")
 		return
 	}

@@ -4,20 +4,21 @@ import (
 	"fmt"
 	"gin/forms"
 	"gin/models"
-	"log"
 )
 
 type User struct {
 	Servers
 }
 //list
-func(u User) GetList() []models.User {
+func(u User) GetList() map[string]interface{} {
 	DB := models.GetDb()
 	var users []models.User
 	u.Name = fmt.Sprintf("%%%s%%",u.Name)
+	var total int
 	DB.Where("name like ?",u.Name).Limit(u.Pagesize).Offset(u.Offset).Order("id desc").Find(&users)
-	log.Println(users)
-	return users
+
+	DB.Model(users).Where("name like ?",u.Name).Count(&total)
+	return map[string]interface{}{"list":users,"total":total}
 }
 
 //添加
@@ -82,9 +83,10 @@ func (u User) Update(form forms.UpUser) error {
 	}
 	user.Name = form.Name
 	user.Phone = form.Phone
+	user.Password = form.Password
 	user.Email = form.Email
 	user.Message = form.Message
-	err = DB.Model(&user).Update(&user).Error
+	err = DB.Model(user).Update(&user).Error
 	if err != nil {
 		return err
 	}
